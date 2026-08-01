@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examination Results - ExamSphere Portal</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div id="preloader">
+    <div class="spinner-ring mb-3"></div>
+    <div class="fw-bold tracking-wider fs-5">Loading Examination Results...</div>
+  </div>
+
+  <div class="app-wrapper">
+    <div id="sidebar-container"></div>
+
+    <main class="app-main">
+      <div id="navbar-container"></div>
+
+      <div class="page-content">
+        <!-- Page Header -->
+        <div class="page-header-row">
+          <div>
+            <h1 class="page-title"><i class="fa-solid fa-square-poll-vertical text-primary me-2"></i> Academic Grade Sheet</h1>
+            <p class="page-subtitle">Controller of Examinations Official Grade Statement & Analysis</p>
+          </div>
+          <button class="btn btn-primary-custom" onclick="simulateDownload('GradeSheet_Sem5_312821104056.pdf')">
+            <i class="fa-solid fa-file-arrow-down me-1"></i> Download Grade Card PDF
+          </button>
+        </div>
+
+        <!-- Grade Summary Cards Grid -->
+        <div class="stats-grid mb-4">
+          <div class="stat-card">
+            <div>
+              <div class="stat-value" data-target="8.92">0.00</div>
+              <div class="stat-label">Cumulative CGPA</div>
+              <span class="badge-status success mt-2"><i class="fa-solid fa-circle-check"></i> First Class Distinction</span>
+            </div>
+            <div class="stat-icon-wrapper blue">
+              <i class="fa-solid fa-award"></i>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-value" data-target="9.10">0.00</div>
+              <div class="stat-label">Semester V SGPA</div>
+              <span class="badge-status success mt-2"><i class="fa-solid fa-arrow-trend-up"></i> Outstanding</span>
+            </div>
+            <div class="stat-icon-wrapper green">
+              <i class="fa-solid fa-chart-line"></i>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-value" data-target="89.2">0.00</div>
+              <div class="stat-label">Overall Percentage</div>
+              <span class="badge-status info mt-2"><i class="fa-solid fa-percent"></i> 89.2% Marks</span>
+            </div>
+            <div class="stat-icon-wrapper amber">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-value" data-target="124">0</div>
+              <div class="stat-label">Credits Earned</div>
+              <span class="badge-status info mt-2"><i class="fa-solid fa-graduation-cap"></i> 100% Cleared</span>
+            </div>
+            <div class="stat-icon-wrapper purple">
+              <i class="fa-solid fa-certificate"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Semester Selector & Performance Visualizer -->
+        <div class="row g-4 mb-4">
+          <div class="col-lg-8">
+            <!-- Marks Table Card -->
+            <div class="es-table-card h-100">
+              <div class="table-header-bar">
+                <div class="table-header-title">
+                  <i class="fa-solid fa-list-ol text-primary me-2"></i> Subject Grade Breakdown (Semester V)
+                </div>
+                <select id="result-sem-select" class="form-select form-select-sm w-auto">
+                  <option value="5" selected>Semester V (Nov/Dec 2025)</option>
+                  <option value="4">Semester IV (May/June 2025)</option>
+                </select>
+              </div>
+              <div class="table-responsive">
+                <table class="custom-table">
+                  <thead>
+                    <tr>
+                      <th>Code</th>
+                      <th>Subject Name</th>
+                      <th>Internal (25)</th>
+                      <th>External (75)</th>
+                      <th>Total (100)</th>
+                      <th>Grade</th>
+                      <th>Result</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong class="text-primary">CS8501</strong></td>
+                      <td class="fw-bold">Theory of Computation</td>
+                      <td>23</td>
+                      <td>68</td>
+                      <td><strong class="fs-6">91</strong></td>
+                      <td><span class="badge bg-success-subtle text-success fw-bold px-2 py-1">O</span></td>
+                      <td><span class="badge-status success"><i class="fa-solid fa-check"></i> PASS</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong class="text-primary">CS8502</strong></td>
+                      <td class="fw-bold">Object Oriented Analysis & Design</td>
+                      <td>24</td>
+                      <td>65</td>
+                      <td><strong class="fs-6">89</strong></td>
+                      <td><span class="badge bg-primary-subtle text-primary fw-bold px-2 py-1">A+</span></td>
+                      <td><span class="badge-status success"><i class="fa-solid fa-check"></i> PASS</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong class="text-primary">CS8503</strong></td>
+                      <td class="fw-bold">Microprocessors & Controllers</td>
+                      <td>22</td>
+                      <td>63</td>
+                      <td><strong class="fs-6">85</strong></td>
+                      <td><span class="badge bg-primary-subtle text-primary fw-bold px-2 py-1">A+</span></td>
+                      <td><span class="badge-status success"><i class="fa-solid fa-check"></i> PASS</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong class="text-primary">CS8504</strong></td>
+                      <td class="fw-bold">Computer Graphics & Multimedia</td>
+                      <td>25</td>
+                      <td>70</td>
+                      <td><strong class="fs-6">95</strong></td>
+                      <td><span class="badge bg-success-subtle text-success fw-bold px-2 py-1">O</span></td>
+                      <td><span class="badge-status success"><i class="fa-solid fa-check"></i> PASS</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong class="text-primary">CS8511</strong></td>
+                      <td class="fw-bold">Object Oriented Analysis Lab</td>
+                      <td>25</td>
+                      <td>72</td>
+                      <td><strong class="fs-6">97</strong></td>
+                      <td><span class="badge bg-success-subtle text-success fw-bold px-2 py-1">O</span></td>
+                      <td><span class="badge-status success"><i class="fa-solid fa-check"></i> PASS</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chart Visualizer -->
+          <div class="col-lg-4">
+            <div class="es-card h-100">
+              <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-column text-primary me-2"></i> Performance Analysis</h5>
+              <p class="text-muted small">Internal vs External score comparison across subjects.</p>
+              <div style="height: 260px; position: relative;">
+                <canvas id="results-performance-chart"></canvas>
+              </div>
+              <div class="border-top pt-3 mt-3 text-center small text-muted">
+                <i class="fa-solid fa-shield-halved text-success me-1"></i> Digitally Signed by COE &bull; Authenticated
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      Auth.requireAuth('student');
+      const resultsData = await API.getResults();
+      initStudentResultsChart(resultsData.semesters[0]);
+    });
+  </script>
+</body>
+</html>

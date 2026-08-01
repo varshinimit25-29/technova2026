@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExamSphere - Automated Examination Management System</title>
+    <meta name="description" content="Complete multi-role examination management portal with workflow automation for Admin, Controller of Examinations (COE), Faculty, and Students.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+    <!-- Main Navigation Header -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon">E</div>
+            <div>
+                <span class="gradient-text">ExamSphere</span>
+                <span style="font-size: 0.7rem; display: block; color: var(--text-muted); font-weight: 500;">Complete Workflow Platform</span>
+            </div>
+        </div>
+
+        <div class="user-profile-bar" id="navUserBar" style="display: none;">
+            <div style="text-align: right;">
+                <div id="navUserName" style="font-weight: 700; color: var(--text-title);">User</div>
+                <div id="navUserRole" class="badge badge-role" style="font-size: 0.65rem;">ROLE</div>
+            </div>
+            <button class="btn btn-secondary" onclick="logout()" style="padding: 6px 14px; font-size: 0.8rem;">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Login Container -->
+    <div class="auth-wrapper" id="authContainer">
+        <div class="glass-panel auth-card animate-fade-in">
+            <div style="text-align: center; margin-bottom: 28px;">
+                <div class="logo-icon" style="width: 54px; height: 54px; font-size: 1.5rem; margin: 0 auto 16px;">E</div>
+                <h2>Sign In to <span class="gradient-text">ExamSphere</span></h2>
+                <p class="text-muted" style="font-size: 0.85rem; margin-top: 6px;">Select your role to access your portal</p>
+            </div>
+
+            <div id="authErrorAlert" class="badge badge-fail mb-3" style="display: none; width: 100%; text-align: center; padding: 10px;"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="roleSelect">Portal Role</label>
+                    <select id="roleSelect" class="form-control" required>
+                        <option value="student">Student Portal</option>
+                        <option value="faculty">Faculty Portal</option>
+                        <option value="coe">Controller of Examinations (COE)</option>
+                        <option value="admin">System Administrator</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="usernameInput">Username</label>
+                    <input type="text" id="usernameInput" class="form-control" placeholder="Enter username" value="john_doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordInput">Password</label>
+                    <input type="password" id="passwordInput" class="form-control" placeholder="Enter password" value="password123" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px; padding: 12px;">Sign In to Dashboard</button>
+            </form>
+
+            <div style="margin-top: 28px; border-top: 1px solid var(--border-card); padding-top: 18px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">⚡ Quick Demo Login Presets</div>
+                <div class="demo-account-grid">
+                    <div class="demo-chip" onclick="selectDemoRole('admin', 'admin')">🛡️ Admin</div>
+                    <div class="demo-chip" onclick="selectDemoRole('coe', 'coe_main')">🎓 COE</div>
+                    <div class="demo-chip" onclick="selectDemoRole('faculty', 'prof_smith')">👨‍🏫 Faculty</div>
+                    <div class="demo-chip" onclick="selectDemoRole('student', 'john_doe')">👨‍🎓 Student</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Container -->
+    <div class="dashboard-container" id="dashboardContainer" style="display: none;">
+        <div id="dashboardContent">
+            <!-- Dynamic Content loaded by app.js based on role -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

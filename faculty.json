@@ -1,0 +1,17 @@
+[
+  {
+    "id": "FAC2024045",
+    "name": "Dr. Priya Sundaram",
+    "designation": "Associate Professor",
+    "department": "Computer Science & Engineering",
+    "email": "priya.s@university.edu",
+    "phone": "+91 98765 43210",
+    "assignedSubjects": [
+      { "code": "CS8601", "name": "Python Programming", "students": 60, "semester": 6 },
+      { "code": "CS8602", "name": "Database Management Systems", "students": 60, "semester": 6 },
+      { "code": "CS8603", "name": "Cloud Computing", "students": 60, "semester": 8 }
+    ],
+    "pendingSubmissions": 1,
+    "upcomingDuties": 2
+  }
+]

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COE Analytics & Reports - ExamSphere Portal</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div id="preloader">
+    <div class="spinner-ring mb-3"></div>
+    <div class="fw-bold tracking-wider fs-5">Generating University Reports & Analytics...</div>
+  </div>
+
+  <div class="app-wrapper">
+    <div id="sidebar-container"></div>
+
+    <main class="app-main">
+      <div id="navbar-container"></div>
+
+      <div class="page-content">
+        <!-- Header -->
+        <div class="page-header-row mb-4">
+          <div>
+            <h1 class="page-title"><i class="fa-solid fa-chart-pie text-primary me-2"></i> COE Executive Analytics & Reports</h1>
+            <p class="page-subtitle">University Examination Results Summary, Pass Percentage & Workload Audits</p>
+          </div>
+          <div class="d-flex gap-2">
+            <button class="btn btn-secondary-custom" onclick="simulateDownload('University_Exam_Report_2026.csv')">
+              <i class="fa-solid fa-file-csv text-success me-1"></i> Export Excel / CSV
+            </button>
+            <button class="btn btn-primary-custom" onclick="simulateDownload('COE_Executive_Report_2026.pdf')">
+              <i class="fa-solid fa-file-pdf me-1"></i> Generate Executive PDF
+            </button>
+          </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="stats-grid mb-4">
+          <div class="stat-card">
+            <div>
+              <div class="stat-value" data-target="142">0</div>
+              <div class="stat-label">Total Exams Conducted</div>
+              <span class="badge-status success mt-2"><i class="fa-solid fa-check"></i> 100% Completed</span>
+            </div>
+            <div class="stat-icon-wrapper blue">
+              <i class="fa-solid fa-file-signature"></i>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-value" data-target="91.4">0.00</div>
+              <div class="stat-label">Overall Pass Percentage</div>
+              <span class="badge-status success mt-2"><i class="fa-solid fa-arrow-trend-up"></i> +2.3% vs Last Sem</span>
+            </div>
+            <div class="stat-icon-wrapper green">
+              <i class="fa-solid fa-percent"></i>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-value" data-target="94.2">0.00</div>
+              <div class="stat-label">Top Department (CSE)</div>
+              <span class="badge-status info mt-2"><i class="fa-solid fa-trophy"></i> Highest Rank</span>
+            </div>
+            <div class="stat-icon-wrapper amber">
+              <i class="fa-solid fa-medal"></i>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-value" data-target="42">0</div>
+              <div class="stat-label">Revaluation Requests</div>
+              <span class="badge-status warning mt-2"><i class="fa-solid fa-clock"></i> Under Review</span>
+            </div>
+            <div class="stat-icon-wrapper purple">
+              <i class="fa-solid fa-rotate-left"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="row g-4 mb-4">
+          <div class="col-lg-6">
+            <div class="es-card h-100">
+              <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-pie text-primary me-2"></i> Department-wise Pass Percentage</h5>
+              <div style="height: 280px; position: relative;">
+                <canvas id="coe-dept-pass-chart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="es-card h-100">
+              <h5 class="fw-bold mb-3"><i class="fa-solid fa-chart-line text-success me-2"></i> Pass Percentage Trend (Last 4 Semesters)</h5>
+              <div style="height: 280px; position: relative;">
+                <canvas id="coe-pass-trend-chart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Department Performance Table -->
+        <div class="es-table-card">
+          <div class="table-header-bar">
+            <div class="table-header-title">
+              <i class="fa-solid fa-table-list text-primary me-2"></i> Department Performance Audit Table (Academic Year 2025-26)
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Department Name</th>
+                  <th>Total Enrolled</th>
+                  <th>Students Appeared</th>
+                  <th>Students Passed</th>
+                  <th>Pass Percentage</th>
+                  <th>Distinction Count</th>
+                  <th>Audit Report</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong class="text-primary fs-6">Computer Science & Engineering</strong></td>
+                  <td>3,200</td>
+                  <td>3,190</td>
+                  <td>3,005</td>
+                  <td><strong class="text-success fs-6">94.2%</strong></td>
+                  <td>850</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary" onclick="simulateDownload('CSE_Dept_Audit_2026.pdf')">
+                      <i class="fa-solid fa-download me-1"></i> Audit PDF
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong class="text-primary fs-6">Information Technology</strong></td>
+                  <td>2,800</td>
+                  <td>2,795</td>
+                  <td>2,565</td>
+                  <td><strong class="text-success fs-6">91.8%</strong></td>
+                  <td>620</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary" onclick="simulateDownload('IT_Dept_Audit_2026.pdf')">
+                      <i class="fa-solid fa-download me-1"></i> Audit PDF
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong class="text-primary fs-6">Electronics & Communication</strong></td>
+                  <td>2,500</td>
+                  <td>2,480</td>
+                  <td>2,195</td>
+                  <td><strong class="text-primary fs-6">88.5%</strong></td>
+                  <td>480</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary" onclick="simulateDownload('ECE_Dept_Audit_2026.pdf')">
+                      <i class="fa-solid fa-download me-1"></i> Audit PDF
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong class="text-primary fs-6">Electrical & Electronics</strong></td>
+                  <td>2,100</td>
+                  <td>2,090</td>
+                  <td>1,785</td>
+                  <td><strong class="text-primary fs-6">85.4%</strong></td>
+                  <td>340</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary" onclick="simulateDownload('EEE_Dept_Audit_2026.pdf')">
+                      <i class="fa-solid fa-download me-1"></i> Audit PDF
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong class="text-primary fs-6">Mechanical Engineering</strong></td>
+                  <td>1,850</td>
+                  <td>1,840</td>
+                  <td>1,510</td>
+                  <td><strong class="text-warning fs-6">82.1%</strong></td>
+                  <td>210</td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary" onclick="simulateDownload('MECH_Dept_Audit_2026.pdf')">
+                      <i class="fa-solid fa-download me-1"></i> Audit PDF
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Auth.requireAuth('coe');
+      initCoeAnalyticsCharts();
+    });
+  </script>
+</body>
+</html>

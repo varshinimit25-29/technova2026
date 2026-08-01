@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty Dashboard - ExamSphere Portal</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+
+  <div id="preloader">
+    <div class="spinner-ring mb-3"></div>
+    <div class="fw-bold tracking-wider fs-5">Loading Faculty Portal...</div>
+  </div>
+
+  <div class="app-wrapper">
+    <div id="sidebar-container"></div>
+
+    <main class="app-main">
+      <div id="navbar-container"></div>
+
+      <div class="page-content">
+        
+        <!-- Faculty Welcome Banner -->
+        <div class="es-card mb-4 bg-gradient text-white position-relative overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #2563eb 100%);">
+          <div class="row align-items-center position-relative" style="z-index: 2;">
+            <div class="col-md-8">
+              <span class="badge bg-white bg-opacity-20 text-white mb-2 px-3 py-1 rounded-pill fw-semibold">
+                <i class="fa-solid fa-chalkboard-user me-1"></i> Department of Computer Science & Engineering
+              </span>
+              <h2 class="fw-extrabold display-6 m-0">Welcome, Dr. Priya Sundaram</h2>
+              <p class="mt-2 text-white-50 fs-6 m-0">
+                Designation: <strong class="text-white">Associate Professor</strong> &bull; Faculty ID: <strong class="text-white">FAC2024045</strong> &bull; Office: <strong class="text-white">CSE Main Block 304</strong>
+              </p>
+            </div>
+            <div class="col-md-4 text-end d-none d-md-block opacity-75">
+              <i class="fa-solid fa-user-tie display-1"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Faculty Metric Cards -->
+        <div class="stats-grid mb-4">
+          <div class="stat-card">
+            <div>
+              <div class="stat-value" data-target="3">0</div>
+              <div class="stat-label">Assigned Subjects</div>
+              <span class="badge-status info mt-2"><i class="fa-solid fa-book"></i> Active Courses</span>
+            </div>
+            <div class="stat-icon-wrapper blue">
+              <i class="fa-solid fa-book-open"></i>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-value" data-target="180">0</div>
+              <div class="stat-label">Total Students</div>
+              <span class="badge-status success mt-2"><i class="fa-solid fa-users"></i> Enrolled</span>
+            </div>
+            <div class="stat-icon-wrapper green">
+              <i class="fa-solid fa-users"></i>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-value" data-target="1">0</div>
+              <div class="stat-label">Pending Marks Submissions</div>
+              <span class="badge-status warning mt-2" id="marks-status-badge"><i class="fa-solid fa-clock"></i> Action Needed</span>
+            </div>
+            <div class="stat-icon-wrapper amber">
+              <i class="fa-solid fa-file-pen"></i>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div>
+              <div class="stat-value" data-target="2">0</div>
+              <div class="stat-label">Upcoming Invigilation Duties</div>
+              <span class="badge-status info mt-2"><i class="fa-solid fa-shield"></i> Confirmed</span>
+            </div>
+            <div class="stat-icon-wrapper purple">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- MARKS MANAGEMENT MODULE -->
+        <div class="es-card mb-4" id="marks">
+          <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <div>
+              <h5 class="fw-bold m-0"><i class="fa-solid fa-pen-to-square text-primary me-2"></i> Internal Marks Management Portal</h5>
+              <p class="text-muted small m-0">Enter internal marks (Continuous Assessment) for COE verification & publication.</p>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-secondary-custom btn-sm" onclick="simulateExcelUpload()">
+                <i class="fa-solid fa-file-excel text-success me-1"></i> Upload Excel / CSV
+              </button>
+              <button class="btn btn-primary-custom btn-sm" onclick="submitFacultyMarks(event)">
+                <i class="fa-solid fa-paper-plane me-1"></i> Submit Marks for COE Approval
+              </button>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="row g-3 mb-3 bg-light-subtle p-3 rounded border">
+            <div class="col-md-4">
+              <label class="form-label small fw-bold text-muted">Select Subject</label>
+              <select class="form-select">
+                <option selected>CS8601 - Python Programming (Sem VI - CSE A)</option>
+                <option>CS8602 - Database Management Systems (Sem VI - CSE B)</option>
+                <option>CS8603 - Cloud Computing (Sem VIII - CSE)</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small fw-bold text-muted">Assessment Component</label>
+              <select class="form-select">
+                <option selected>Continuous Assessment Test (CAT-1) [Max 25]</option>
+                <option>Continuous Assessment Test (CAT-2) [Max 25]</option>
+                <option>Model Examination [Max 75]</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label small fw-bold text-muted">Search Student</label>
+              <input type="text" class="form-control" placeholder="Search by name or register no...">
+            </div>
+          </div>
+
+          <!-- Marks Entry Form Table -->
+          <form id="marks-entry-form" onsubmit="submitFacultyMarks(event)">
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Register Number</th>
+                    <th>Student Name</th>
+                    <th>Dept & Sem</th>
+                    <th>CAT-1 Mark (25)</th>
+                    <th>Assignment Mark (10)</th>
+                    <th>Total Internal (35)</th>
+                    <th>Verification Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong class="text-primary">312821104056</strong></td>
+                    <td class="fw-bold">Varshini R</td>
+                    <td>CSE &bull; Sem VI</td>
+                    <td style="width: 140px;">
+                      <input type="number" class="form-control form-control-sm mark-input" value="23" min="0" max="25" required>
+                    </td>
+                    <td style="width: 140px;">
+                      <input type="number" class="form-control form-control-sm mark-input" value="10" min="0" max="10" required>
+                    </td>
+                    <td><strong class="fs-6 text-success">33 / 35</strong></td>
+                    <td><span class="badge-status success"><i class="fa-solid fa-check"></i> Validated</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong class="text-primary">312821104012</strong></td>
+                    <td class="fw-bold">Arjun Kumar</td>
+                    <td>CSE &bull; Sem VI</td>
+                    <td style="width: 140px;">
+                      <input type="number" class="form-control form-control-sm mark-input" value="21" min="0" max="25" required>
+                    </td>
+                    <td style="width: 140px;">
+                      <input type="number" class="form-control form-control-sm mark-input" value="9" min="0" max="10" required>
+                    </td>
+                    <td><strong class="fs-6 text-success">30 / 35</strong></td>
+                    <td><span class="badge-status success"><i class="fa-solid fa-check"></i> Validated</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong class="text-primary">312821104028</strong></td>
+                    <td class="fw-bold">Deepika S</td>
+                    <td>CSE &bull; Sem VI</td>
+                    <td style="width: 140px;">
+                      <input type="number" class="form-control form-control-sm mark-input" value="25" min="0" max="25" required>
+                    </td>
+                    <td style="width: 140px;">
+                      <input type="number" class="form-control form-control-sm mark-input" value="10" min="0" max="10" required>
+                    </td>
+                    <td><strong class="fs-6 text-success">35 / 35</strong></td>
+                    <td><span class="badge-status success"><i class="fa-solid fa-check"></i> Validated</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </form>
+        </div>
+
+        <!-- ATTENDANCE & DUTY MODULES ROW -->
+        <div class="row g-4">
+          <!-- Attendance Management Card -->
+          <div class="col-lg-6" id="attendance">
+            <div class="es-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold m-0"><i class="fa-solid fa-clipboard-user text-success me-2"></i> Attendance Management</h5>
+                <button class="btn btn-sm btn-outline-primary fw-bold" onclick="showToast('Attendance Saved', 'Current attendance log updated successfully.', 'success')">
+                  <i class="fa-solid fa-floppy-disk me-1"></i> Save Changes
+                </button>
+              </div>
+
+              <div class="table-responsive">
+                <table class="custom-table">
+                  <thead>
+                    <tr>
+                      <th>Student</th>
+                      <th>Total Hours</th>
+                      <th>Attended</th>
+                      <th>Attendance %</th>
+                      <th>Eligibility Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><div class="fw-bold">Varshini R</div><div class="text-muted small">312821104056</div></td>
+                      <td>60</td>
+                      <td>56</td>
+                      <td><strong class="text-success">93.3%</strong></td>
+                      <td><span class="badge bg-success-subtle text-success fw-bold">Eligible</span></td>
+                    </tr>
+                    <tr>
+                      <td><div class="fw-bold">Arjun Kumar</div><div class="text-muted small">312821104012</div></td>
+                      <td>60</td>
+                      <td>52</td>
+                      <td><strong class="text-primary">86.6%</strong></td>
+                      <td><span class="badge bg-success-subtle text-success fw-bold">Eligible</span></td>
+                    </tr>
+                    <tr>
+                      <td><div class="fw-bold">Deepika S</div><div class="text-muted small">312821104028</div></td>
+                      <td>60</td>
+                      <td>58</td>
+                      <td><strong class="text-success">96.6%</strong></td>
+                      <td><span class="badge bg-success-subtle text-success fw-bold">Eligible</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Invigilation Duty Schedule Card -->
+          <div class="col-lg-6" id="duties">
+            <div class="es-card h-100">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold m-0"><i class="fa-solid fa-user-shield text-warning me-2"></i> Invigilation Duty Roster</h5>
+                <span class="badge bg-primary rounded-pill">COE Assigned</span>
+              </div>
+
+              <div class="d-flex flex-column gap-3">
+                <div class="p-3 rounded border bg-light-subtle d-flex align-items-center justify-content-between flex-wrap gap-2">
+                  <div>
+                    <div class="badge bg-info-subtle text-info fw-bold mb-1">Chief Invigilator</div>
+                    <div class="fw-bold">10 Aug 2026 &bull; 10:00 AM - 01:00 PM</div>
+                    <div class="text-muted small"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Hall A-102 (Main Block)</div>
+                  </div>
+                  <button class="btn btn-sm btn-outline-secondary" onclick="showToast('Duty Swap', 'Swap request submitted to COE Office.', 'info')">
+                    Request Duty Swap
+                  </button>
+                </div>
+
+                <div class="p-3 rounded border bg-light-subtle d-flex align-items-center justify-content-between flex-wrap gap-2">
+                  <div>
+                    <div class="badge bg-info-subtle text-info fw-bold mb-1">Hall Invigilator</div>
+                    <div class="fw-bold">17 Aug 2026 &bull; 10:00 AM - 01:00 PM</div>
+                    <div class="text-muted small"><i class="fa-solid fa-location-dot me-1 text-danger"></i> Hall B-204 (Tech Park)</div>
+                  </div>
+                  <button class="btn btn-sm btn-outline-secondary" onclick="showToast('Duty Swap', 'Swap request submitted to COE Office.', 'info')">
+                    Request Duty Swap
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/navigation.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      Auth.requireAuth('faculty');
+    });
+  </script>
+</body>
+</html>
